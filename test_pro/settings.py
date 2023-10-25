@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+import dj_database_url
 
 from pathlib import Path
 
@@ -23,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-13g*hh7t^i-=1rbxu5&+b&h)%t_&9$9&jes%_kh668c7(gjom$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -80,11 +81,14 @@ WSGI_APPLICATION = 'test_pro.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgres://dslrgbyw:hDzw-gSSb26iYAPVg4xFvsn8d2SCmW_M@suleiman.db.elephantsql.com/dslrgbyw',
+        conn_max_age=600,
+        conn_health_checks=True,
+         ssl_require=True
+    )
 }
+
 
 
 # Password validation
