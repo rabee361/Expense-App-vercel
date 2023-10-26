@@ -48,6 +48,34 @@ def expense_types(request,year):
 
 
 
+
+
+def expense_type(request,year):
+    expenses = Item.objects.filter(time_purchased__year=year)
+    grouped_expenses = expenses.annotate(item_price=F("price")).\
+                                values("expense_type").annotate(average=Sum("price")).\
+                                values("expense_type","average").distinct()
+
+    types_dict = get_type_dict()
+
+    for group in grouped_expenses:
+        types_dict[group["expense_type"]] = round(group["average"], 2)
+
+    return JsonResponse({
+        "title": f"type od expenses in {year}",
+        "data": {
+            "labels": list(types_dict.keys()),
+            "datasets": [{
+                "data": list(types_dict.values()),
+            }]
+        },
+    })
+
+
+
+
+
+
 def main(request):
     context = {}
     return render(request, "main.html", context)
