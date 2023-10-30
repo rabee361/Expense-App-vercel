@@ -51,7 +51,7 @@ def expense_type(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
     grouped_expenses = expenses.annotate(item_price=F("price")).\
                                 values("expense_type").annotate(average=Sum("price")).\
-                                values("expense_type","sum").distinct()
+                                values("expense_type","average").distinct()
 
     types_dict = get_type_dict()
 
