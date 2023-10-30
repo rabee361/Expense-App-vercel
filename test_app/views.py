@@ -36,7 +36,7 @@ def expense_types(request,year):
     return JsonResponse({
         "title": f"type of expenses in {year}",
         "data": {
-            "key" : 3000
+            "key" : 3000,
             "labels": list(types_dict.keys()),
             "datasets": [{
                 "label": "Amount (ل.س)",
