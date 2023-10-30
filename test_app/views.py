@@ -37,20 +37,20 @@ def expense_types(request,year):
         "title": f"type of expenses in {year}",
         "data": {
             "key" : 3000
-            # "labels": list(types_dict.keys()),
-            # "datasets": [{
-            #     "label": "Amount (ل.س)",
-            #     "backgroundColor": generate_color_palette(len(types_dict)),
-            #     "borderColor": generate_color_palette(len(types_dict)),
-            #     "data": list(types_dict.values()),
-            # }]
+            "labels": list(types_dict.keys()),
+            "datasets": [{
+                "label": "Amount (ل.س)",
+                "backgroundColor": generate_color_palette(len(types_dict)),
+                "borderColor": generate_color_palette(len(types_dict)),
+                "data": list(types_dict.values()),
+            }]
         },
     })
 
 def expense_type(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
     grouped_expenses = expenses.annotate(item_price=F("price")).\
-                                values("expense_type").annotate(sum=Sum("price")).\
+                                values("expense_type").annotate(average=Sum("price")).\
                                 values("expense_type","sum").distinct()
 
     types_dict = get_type_dict()
