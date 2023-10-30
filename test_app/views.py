@@ -56,7 +56,7 @@ def expense_type(request,year):
     types_dict = get_type_dict()
 
     for group in grouped_expenses:
-        types_dict[group["expense_type"]] = float(round(group["average"], 2))
+        types_dict[group["expense_type"]] = round(group["average"], 2)
 
     return JsonResponse({ 
         "data": types_dict,
