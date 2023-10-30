@@ -36,13 +36,14 @@ def expense_types(request,year):
     return JsonResponse({
         "title": f"type od expenses in {year}",
         "data": {
-            "labels": list(types_dict.keys()),
-            "datasets": [{
-                "label": "Amount (ل.س)",
-                "backgroundColor": generate_color_palette(len(types_dict)),
-                "borderColor": generate_color_palette(len(types_dict)),
-                "data": list(types_dict.values()),
-            }]
+            "key" : 3000
+            # "labels": list(types_dict.keys()),
+            # "datasets": [{
+            #     "label": "Amount (ل.س)",
+            #     "backgroundColor": generate_color_palette(len(types_dict)),
+            #     "borderColor": generate_color_palette(len(types_dict)),
+            #     "data": list(types_dict.values()),
+            # }]
         },
     })
 
