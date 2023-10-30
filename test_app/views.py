@@ -34,7 +34,7 @@ def expense_types(request,year):
         types_dict[group["expense_type"]] = round(group["average"], 2)
 
     return JsonResponse({
-        "title": f"type od expenses in {year}",
+        "title": f"type of expenses in {year}",
         "data": {
             "key" : 3000
             # "labels": list(types_dict.keys()),
@@ -46,10 +46,6 @@ def expense_types(request,year):
             # }]
         },
     })
-
-
-
-
 
 def expense_type(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
@@ -63,13 +59,13 @@ def expense_type(request,year):
         types_dict[group["expense_type"]] = round(group["average"], 2)
 
     return JsonResponse({
-        "title": f"type od expenses in {year}",
+        "title": f"type of expenses in {year}",
         "data": {
-            "key" : 3000
-            # "dataset": list(types_dict.keys())
-            # "datasets": [{
-            #     "data": list(types_dict.values()),
-            # }]
+            "key" : 3000,
+            "labels": list(types_dict.keys()),
+            "datasets": [{
+                "data": list(types_dict.values()),
+            }]
         },
     })
 
