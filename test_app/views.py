@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.db.models import Sum , F
+from django.db.models import Sum , F , Avg
 from django.conf import settings
 from django.http import JsonResponse
 from utils.charts import  generate_color_palette, get_type_dict
@@ -53,8 +53,8 @@ def expense_types(request,year):
 def expense_type(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
     grouped_expenses = expenses.annotate(item_price=F("price")).\
-                                values("expense_type").annotate(average=Sum("price")).\
-                                values("expense_type","average").distinct()
+                                values("expense_type").annotate(sum=Sum("price")).\
+                                values("expense_type","sum").distinct()
 
     types_dict = get_type_dict()
 
@@ -64,9 +64,9 @@ def expense_type(request,year):
     return JsonResponse({
         "title": f"type od expenses in {year}",
         "data": {
-            "labels": list(types_dict.keys()),
+            "labels": types_dict.keys(),
             "datasets": [{
-                "data": list(types_dict.values()),
+                "data": types_dict.values(),
             }]
         },
     })
