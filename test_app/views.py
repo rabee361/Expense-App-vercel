@@ -64,7 +64,7 @@ def expense_type(request,year):
     return JsonResponse({
         "title": f"type od expenses in {year}",
         "data": {
-            "dataset": types_dict
+            "dataset": list(types_dict)
             # "datasets": [{
             #     "data": types_dict.values(),
             # }]
