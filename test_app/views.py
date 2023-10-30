@@ -64,7 +64,7 @@ def expense_type(request,year):
             "key" : 3000,
             "labels": list(types_dict.keys()),
             "datasets": [{
-                "data": list(types_dict.values()),
+                "data": types_dict,
             }]
         },
     })
