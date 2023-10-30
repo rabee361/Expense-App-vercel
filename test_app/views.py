@@ -58,14 +58,17 @@ def expense_type(request,year):
     for group in grouped_expenses:
         types_dict[group["expense_type"]] = round(group["average"], 2)
 
-    return JsonResponse({
+    return JsonResponse({ 
         "title": f"type of expenses in {year}",
         "data": {
             "key" : 3000,
-            "labels": list(types_dict.keys()),
-            "datasets": [{
-                "data": list(types_dict.values()),
-            }]
+            # "labels": list(types_dict.keys()),
+            # "datasets": [{
+            #     "label": "Amount (ل.س)",
+                # "backgroundColor": generate_color_palette(len(types_dict)),
+                # "borderColor": generate_color_palette(len(types_dict)),
+                # "data": list(types_dict.values()),
+            # }]
         },
     })
 
