@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import *
-from django.db.models import Sum , F , Avg
+from django.db.models import Sum , F , Avg , Count
 from django.conf import settings
 from django.http import JsonResponse
 from utils.charts import  generate_color_palette, get_type_dict
@@ -22,7 +22,7 @@ def get_filter_options(request):
 
 
 
-def expense_types(request,year):
+def pie(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
     grouped_expenses = expenses.annotate(item_price=F("price")).\
                                 values("expense_type").annotate(average=Sum("price")).\
@@ -47,7 +47,7 @@ def expense_types(request,year):
         },
     })
 
-def expense_type(request,year):
+def line(request,year):
     expenses = Item.objects.filter(time_purchased__year=year)
     grouped_expenses = expenses.annotate(item_price=F("price")).\
                                 values("expense_type").annotate(average=Sum("price")).\
@@ -61,6 +61,35 @@ def expense_type(request,year):
     return JsonResponse({ 
         "data": types_dict,
     })
+
+
+
+# @staff_member_required
+# def payment_method_chart(request, year):
+#     purchases = Item.objects.filter(time__year=year)
+#     grouped_purchases = purchases.values("payment_method").annotate(count=Count("id"))\
+#         .values("payment_method", "count").order_by("payment_method")
+
+#     payment_method_dict = dict()
+
+#     for payment_method in Item.PAYMENT_METHODS:
+#         payment_method_dict[payment_method[1]] = 0
+
+#     for group in grouped_purchases:
+#         payment_method_dict[dict(Purchase.PAYMENT_METHODS)[group["payment_method"]]] = group["count"]
+
+#     return JsonResponse({
+#         "title": f"Payment method rate in {year}",
+#         "data": {
+#             "labels": list(payment_method_dict.keys()),
+#             "datasets": [{
+#                 "label": "Amount ($)",
+#                 "backgroundColor": generate_color_palette(len(payment_method_dict)),
+#                 "borderColor": generate_color_palette(len(payment_method_dict)),
+#                 "data": list(payment_method_dict.values()),
+#             }]
+#         },
+#     })
 
 
 
