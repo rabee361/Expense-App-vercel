@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from testapp.models import Item
+from test_app.models import Item
 
 class ItemSerializer(ModelSerializer):
     class Meta:

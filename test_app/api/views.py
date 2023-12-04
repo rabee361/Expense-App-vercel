@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from expenseapp.models import Item
+from test_app.models import Item
 from utils.charts import months , types, colorPrimary, colorSuccess, colorDanger, generate_color_palette, get_year_dict , get_type_dict
 from utils.charts import *
 from django.db.models.functions import ExtractYear, ExtractMonth
