@@ -64,6 +64,18 @@
             }
           }
         });
+
+        let spendPerCustomerCtx = document.getElementById("spendPerCustomerChart").getContext("2d");
+        let spendPerCustomerChart = new Chart(spendPerCustomerCtx, {
+          type: "line",
+          options: {
+            responsive: true,
+            title: {
+              display: false,
+              text: ""
+            }
+          }
+        });
   </script>
 
 
@@ -123,7 +135,9 @@
   }
 
   function loadAllCharts(year) {
-    loadChart(paymentMethodChart , `/chart/expense-types/${year}/`);
+    loadChart(paymentMethodChart , `/chart/pie-chart/${year}/`);
+    loadChart(spendPerCustomerChart , `/chart/line-chart/${year}/`);
+
   }
 </script>
 
