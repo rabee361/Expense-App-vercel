@@ -42,8 +42,9 @@ class Line(APIView):
 
         for group in grouped_expenses:
             sales_dict[months[group["month"]-1]] = group["sum"]
-        return Response({ "labels":list(sales_dict.keys()),
-                         "data":list(sales_dict.values())}
+
+        return Response({
+                         "data": sales_dict}
                          )
 
 
