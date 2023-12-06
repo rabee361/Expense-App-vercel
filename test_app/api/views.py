@@ -17,9 +17,16 @@ class Pie(APIView):
         for group in grouped_expenses:
             types_dict[group["expense_type"]] = round(group["sum"], 2)
 
+        test_list = []
+        for i in types_dict:
+            test_dict = {}
+            test_dict['name'] = i
+            test_dict['value'] = types_dict[i]
+            test_list.append(test_dict)
+
+
         return Response({
-                "labels": list(types_dict.keys()),
-                "data": list(types_dict.values()),
+                "data": test_list,
                 }
         )
 
